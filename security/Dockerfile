@@ -10,7 +10,7 @@ WORKDIR /app
 # 3. Copiamo il JAR generato dal comando './mvnw clean package'
 # Usiamo l'asterisco *.jar così non dobbiamo cambiare il Dockerfile 
 # ogni volta che cambia la versione nel pom.xml.
-COPY target/*.jar app.jar
+COPY target/*.jar security-0.0.1-SNAPSHOT.jar
 
 # 4. Esponiamo la porta 8080 (documentativo)
 # Utile per far capire a chi legge che l'app risponde su questa porta.
@@ -19,4 +19,4 @@ EXPOSE 8080
 # 5. Comando di avvio in formato "Exec"
 # È il modo migliore perché permette a Docker di chiudere l'app 
 # in modo "gentile" (graceful shutdown) quando dai il comando stop.
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "security-0.0.1-SNAPSHOT.jar"]
