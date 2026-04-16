@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/me")
 public class MeController {
 
     @GetMapping("/whoami")
@@ -27,7 +27,7 @@ public class MeController {
         response.put("roles", auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
-        
+
         return response;
     }
 }
