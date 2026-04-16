@@ -31,15 +31,13 @@ public class Utente {
   @Column(unique = true)
   private String username;
   private String password;
-  private String ruolo; 
+  private String ruolo;
 
+  @ManyToOne
+  @JoinColumn(name = "manager_id")
+  private Utente manager;
 
-
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Utente manager; 
-
-    @OneToMany(mappedBy = "manager")
-    private List<Utente> team;
+  @OneToMany(mappedBy = "manager")
+  private List<Utente> team;
 
 }

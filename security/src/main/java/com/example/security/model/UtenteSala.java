@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UtenteSala
-{
-    
+public class UtenteSala {
+
     private Long idUtente;
     private Long idSala;
 
