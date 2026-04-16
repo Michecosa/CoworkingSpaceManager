@@ -1,35 +1,45 @@
 package com.example.security.service;
 
-import com.example.security.model.Sala;
-import com.example.security.repository.SalaRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class SalaService {
+import org.springframework.stereotype.Service;
 
-    private final SalaRepository salaRepository;
+import com.example.security.model.Sala;
+
+@Service
+public class SalaService {
+    private List<Sala> sale = new ArrayList<>();
+    private Long idCounter = 1L;
 
     public List<Sala> getAll() {
-        return salaRepository.findAll();
-    }
-
-    public List<Sala> getDisponibili() {
-        return salaRepository.findByDisponibile(true);
+        return sale;
     }
 
     public Sala getById(Long id) {
-        return salaRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Sala non trovata: " + id));
+        return sale.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Sala non trovata"));
     }
 
-    public Sala save(Sala sala) {
-        return salaRepository.save(sala);
+    public Sala crea(Sala nuovaSala) {
+        nuovaSala.setId(idCounter++);
+        sale.add(nuovaSala);
+        return nuovaSala;
     }
 
-    public void delete(Long id) {
-        salaRepository.deleteById(id);
+    public Sala aggiorna(Long id, Sala aggiornata) {
+        Sala sala = getById(id);
+
+        sala.setCapienza(aggiornata.getCapienza());
+        sala.setDisponibile(aggiornata.isDisponibile());
+
+        return sala;
+    }
+
+    public void elimina(Long id) {
+        Sala sala = getById(id);
+        sale.remove(sala);
     }
 }
